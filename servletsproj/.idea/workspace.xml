@@ -11,10 +11,13 @@
       <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/WEB-INF/web.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/DAO/DataDAO.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/services/DependencyLoaderListener.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/servlets/PingServlet.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Dependencies/DependencyLoaderListener.class" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../untitled/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../untitled/.idea/compiler.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../untitled/.idea/jarRepositories.xml" afterDir="false" />

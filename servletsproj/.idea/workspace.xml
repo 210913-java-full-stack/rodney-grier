@@ -5,33 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="47773485-bb53-4073-a698-acc0dbd95227" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/WEB-INF/web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/DAO/DataDAO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/services/DependencyLoaderListener.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/servlets/PingServlet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Dependencies/DependencyLoaderListener.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../untitled/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../untitled/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../untitled/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../untitled/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../untitled/.idea/runConfigurations.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../untitled/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../assignments/src/main/java/HelloWorld.java" beforeDir="false" afterPath="$PROJECT_DIR$/../assignments/src/main/java/HelloWorld.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../to-do-app/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../to-do-app/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../to-do-app/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../to-do-app/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../to-do-app/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../to-do-app/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../to-do-app/src/main/java/Home.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../to-do-app/src/main/java/models/ToDoItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../to-do-app/src/main/java/models/ToDoItem.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../to-do-app/src/main/java/utility/PrintView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/WEB-INF/web.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Dependencies/DependencyLoaderListener.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,10 +38,11 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="project.scopes" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -78,8 +56,8 @@
   <component name="RunManager">
     <configuration name="Serverproj" type="com.poratu.idea.plugins.tomcat" factoryName="SMART_TOMCAT_FACTORY">
       <option name="adminPort" value="8005" />
-      <option name="contextPath" value="/servletsproj" />
-      <option name="docBase" value="C:\Revature training\rodney-grier\servletsproj" />
+      <option name="contextPath" value="/webapp" />
+      <option name="docBase" value="C:\Revature training\rodney-grier\servletsproj\src\main\webapp" />
       <option name="envOptions">
         <map />
       </option>

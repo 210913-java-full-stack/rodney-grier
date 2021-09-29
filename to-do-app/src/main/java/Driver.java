@@ -40,7 +40,7 @@ public class Driver {
         try {
             Connection conn = ConnectionManager.getConnection();
 
-            String sql = "SELECT * FROM test_table";
+            String sql = "SELECT * FROM accounts";
             Statement stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery(sql);
@@ -67,7 +67,7 @@ public class Driver {
 
 
 
-        //Main app loop
+       /* //Main app loop
         boolean running = true;
         while(running) {
             System.out.println("===MAIN MENU===\nEnter selection:\n\n1) View ToDo Items.\n2) Mark item complete.\nQ) Quit");
@@ -99,6 +99,6 @@ public class Driver {
                     running = false;
                     break;
             }
-        }
+        }*/
     }
 }

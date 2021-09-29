@@ -1,8 +1,14 @@
+import models.TestModel;
 import models.toDOitems;
 import utilities.ConnectionManager;
 import utilities.PrintView;
 
+import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,9 +21,31 @@ public class ToDoApp {
                 //Scanner object bound to System.in, the console input
                 Scanner sc = new Scanner(System.in);
 
-                try{
+                try {
                         Connection conn = ConnectionManager.getConnection();
-                } catch (Exception e) {
+
+                        String sql = "SELECT * FROM accounts"; //select table from db
+                        Statement stmt = conn.createStatement();
+
+                        ResultSet rs = stmt.executeQuery(sql);
+
+                        List<TestModel> resultList = new ArrayList<>();
+                        while(rs.next()) {
+                                TestModel temp = new TestModel();
+                                temp.setId(rs.getInt("account_id")); //sets column info from accounts id
+                                                                                //in temporary ResultSet rs
+                                temp.setBalance(rs.getDouble("balance")); //sets column info from balance
+                                                                                        //in temporary ResultSet rs
+
+                                resultList.add(temp); //adds temporary TestModel data to resultList
+                        }
+
+                        for (TestModel tm : resultList) { //create TestModel from resultList to print
+                                System.out.println(tm);
+                        }
+
+
+                } catch (SQLException | IOException e) {
                         e.printStackTrace();
                 }
 
@@ -36,7 +64,7 @@ public class ToDoApp {
         toDOitems newItem4 = new toDOitems("Quit the app!");
         toDoList.add(newItem3);
 
-            //Main app loop
+          /*  //Main app loop
             boolean running = true;
             while(running) {
                 System.out.println("===MAIN MENU===\nEnter selection:\n\n1) View ToDo Items.\n2) Mark item complete.\nQ) Quit");
@@ -68,7 +96,7 @@ public class ToDoApp {
                         running = false;
                         break;
                 }
-            }
+            }*/
 
 
         }

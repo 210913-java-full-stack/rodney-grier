@@ -1,15 +1,42 @@
 package models;
 
-import interfaces.myArrayInterface;
 
-public class arrayList<E> implements myArrayInterface<E> {
+import interfaces.arrayListGetInf;
+
+public class arrayList<E, message> implements arrayListGetInf {
 
     private int size;
+    String message;
+    String messageb;
+    private int id;
 
-    public arrayList(int i) {
-        size = i;
+    public int getId(int i) {
+        return id;
+    }
+
+    @Override
+    public int getId() {
+        return 0;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public void setE(Object e) {
 
     }
+
+    public arrayList(int size, String message, String messageb, Double bal) {
+        this.size = size;
+        this.message = message;
+        this.messageb = messageb;
+        this.bal = bal;
+    }
+
+    Double bal;
 
     public arrayList() {
 
@@ -20,19 +47,10 @@ public class arrayList<E> implements myArrayInterface<E> {
         return size;
     }
 
-    @Override
-    public void add() {
-
-    }
 
     @Override
-    public void add(E e, int index) {
+    public void add(Object o, int index) {
 
-    }
-
-    @Override
-    public E get(int index) {
-        return null;
     }
 
     @Override
@@ -40,22 +58,24 @@ public class arrayList<E> implements myArrayInterface<E> {
 
     }
 
+
+
+
     @Override
     public void clear() {
 
     }
 
     @Override
-    public int contains(E e) {
-        return 0;
+    public void add(accMsg newItem) {
+
     }
 
-        Object e = new Object[2];
 
-        public E[] getArray(){
+    public void add(String newItem) {
 
-        return (E[]) e;
-        }
+    }
+
 
 
 }

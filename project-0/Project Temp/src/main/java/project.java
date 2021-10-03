@@ -1,221 +1,532 @@
-
 import DAOs.dataAccessObj;
-import models.getMessages;
 import projExecptions.badUserInput;
 import utilities.ConnectionManager;
-import utilities.PrintView;
-
-
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
+import models.arrayList;
+
 
 public class project {
 
-    public static void main(String[] args) throws SQLException, IOException {
 
-        //Scans for Console input
-        Scanner io = new Scanner(System.in);
+    //BANKING PROGRAM MAIN START POINT
 
-        //Try to establish connection
+    public static void main(String[] args) throws SQLException, IOException, badUserInput {
+
+        //IO AND DB CONNECTIONS
+        Connection conn = ConnectionManager.getConnection();
+        Scanner sc = new Scanner(System.in);
+        boolean custRunning;
+        boolean running = true;
+        boolean rgstr = true;
+
+        //PERSISTENT TABLE DATA
+        dataAccessObj balanceList = new dataAccessObj(conn); //keeps the current user account info//updates
+        // via the dao object this data persists
+        //for the length of the login
+
+        arrayList<dataAccessObj,String> accountsMenu = new arrayList(); //stores the user session information pulled
+        //with each option this data pesists only for
+        //individual switch cases
+
+
+        //PASSWORD REPO
+        arrayList<Object, Object> pwdAccTable = new arrayList<>();
+        String username;
+        String vPword;
+        String pword = "return";
+
+        Double bal; //stores balance of account being viewed
+
+
+        //Try to establish a connection
         try {
-            Connection conn = ConnectionManager.getConnection();
 
-        } catch (SQLException s) {
-            s.printStackTrace();
-        } catch (IOException e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        //////////////////BANKING APP/////////////////
-        boolean running = true;
-        boolean custRunning = false;//Test for customer session switch case
 
-        System.out.println("===MAIN MENU===\nPress 'R' to register 'L' to login 'Q' to quit :\n     Register \n     Login \n     Quit");
-        String input1 = io.nextLine();
 
         while (running) {
-                        /*
-                Switch cases to select options from Start screen. This will include Login, Register
-                and Quit
+            //MAIN App
+                 /*
+                 this constructs the console graphics and displays the list of options. Options are
+                 Login, Register and Quit.
                  */
-            switch (input1) {
-                //Register for an account
+
+            //TEST TO SEE IF PROGRAM IS RUNNING
+
+            /*                            ///INITIALIZATION SCREEN
+             */
+
+
+            System.out.println("===MAIN MENU===\nPress 'R' to register 'L' to login 'Q' to quit :\n     Register \n     Login \n     Quit");
+
+            ///Switch cases to select options from Start screen. This will include Login, Register
+            ///and Quit
+
+
+            String strt = sc.nextLine();
+
+
+            switch (strt) {
+
+
                 case "R":
                 case "r":
-                case "1":
 
-                    boolean test = false;//test for successful registration
-                    System.out.println("========== Register ==========");
-                    System.out.print("\nEnter First name: ");
+                    while (rgstr) {
+                        ///CASE TO REGISTER FOR AN ACCOUNT
 
-                    String fn = io.nextLine();
+                        /////////REGISTRATION
 
-                    System.out.println("========== Register ==========");
-                    System.out.print("\nEnter Middle name: ");
+                        System.out.println("========== Register1 ==========");
+                        System.out.print("\nEnter First name: ");
+                        String fn = "";
+                        fn = sc.nextLine();
 
-                    String mn = io.nextLine();
+                        System.out.println("========== Register2 ==========");
+                        System.out.print("\nEnter Middle name: ");
+                        String mn;
+                        mn = sc.nextLine();
 
-                    System.out.println("========== Register ==========");
-                    System.out.print("\nEnter Last name: ");
-                    String ln = io.nextLine();
+                        System.out.println("========== Register4 ==========");
+                        System.out.print("\nEnter Last name: ");
+                        String ln;
+                        ln = sc.nextLine();
 
-                    System.out.println("========== Register ==========");
-                    System.out.print("\nEnter email: ");
-                    String em = io.nextLine(); //Or we could do sc.nextInt(); but then we need to consume the leftover newline character
+                        System.out.println("========== Register5 ==========");
+                        System.out.print("\nEnter email: ");
+                        String em = sc.nextLine();
 
-                    System.out.println("========== Register ==========");
-                    System.out.print("\nEnter Street: ");
-                    String ad = io.nextLine();
+                        System.out.println("========== Register6 ==========");
+                        System.out.print("\nEnter Street: ");
+                        String ad;
+                        ad = sc.nextLine();
 
-                    System.out.println("========== Register ==========");
-                    System.out.print("\nEnter city: ");
-                    String ci = io.nextLine();
+                        System.out.println("========== Register7 ==========");
+                        System.out.print("\nEnter city: ");
+                        String c;
+                        c = sc.nextLine();
 
-                    System.out.println("========== Register ==========");
-                    System.out.print("\nEnter State: ");
-                    String st = io.nextLine();
+                        System.out.println("========== Register8 ==========");
+                        System.out.print("\nEnter State: ");
+                        String st = sc.nextLine();
 
-                    System.out.println("========== Register ==========");
-                    System.out.print("\nEnter Zipcode: ");
-                    String zi = io.nextLine();
+                        System.out.println("========== Register9 ==========");
+                        System.out.print("\nEnter Zipcode: ");
+                        String z = sc.nextLine();
+                        Integer zi = Integer.valueOf(z);
+                        bal = 200.00;///initial balance can be adjusted here
 
-                    String bal = "0.00";
 
-            }
+                        System.out.println("=====Registration Complete==========");
+                        username = em + st;///addind these two inputs make up a unique
+                        ///combination that will be used as the cust_id
+                        /// on the junction_ac table in MariaDb
 
-            boolean test = true;
 
-            System.out.println("========== Register ==========");
+                        System.out.println("=====Account Added Successfully!=====142=====");
 
-            System.out.print("\nSet new 8 character password: ");
 
-            String pword = io.nextLine().toString(); //Or we could do sc.nextInt(); but then we need to consume the leftover newline character
+                        boolean login = true;
 
-            System.out.println("========== Register ==========");
+                        while (login)//////TEST TO SEE IF REGISTRATION HAS
+                            //                          BEEN COMPLETE
 
-            System.out.print("\nConfirm password: ");
-            String vPword = io.nextLine().toString(); //verify password
+                            login = false;///this locks the user into this customer_id
 
-            boolean passMatch = (pword.regionMatches(0, vPword, 0, 8));//checks if input strings of password match
 
-            if (passMatch) {
+                        System.out.println("==========SET NEW PASSWORD==========");
+                        System.out.println("\nSet new 8 character password: ");
+                        String upword = sc.nextLine();//this takes the users email input
 
-                try {
-                    Connection conn = ConnectionManager.getConnection();
+                        System.out.println("==========VERIFY PASSWORD ==========");
+                        System.out.print("\nConfirm password: ");
+                        String uvPword = sc.nextLine();//this sets the new 8 digit password
+                        System.out.println("== Registration Complete!====");
 
-                    dataAccessObj dao = new dataAccessObj(conn) {
-                        @Override
-                        public void addAccount(String s, String e, Double bal) throws SQLException {
+                        ///this verifies that the user's input matches
+                        boolean passMatch = (upword.regionMatches(0, uvPword, 0, 8));
+                        if (passMatch) {///THIS PROTECTS THE SECURITY OF THE FIRST TABLE IN
+                            //MARIA DB, THE junction_ac TABLE, AND THUS ACHIEVES 1NF FOR THAT TABLE.
 
-                            String email = e;
-                            String state = s;
-
-                            String acinsertStatement = "INSERT INTO accounts (account_id, balance) VALUES (\"" + email + state + "\",\"" + bal + "\");";
-                            PreparedStatement acpreparedInsertStatement = conn.prepareStatement(acinsertStatement);
-
-                            System.out.println("Registration complete, account added!");
+                            ///pwdAccTable CLASS BUILDS ANOTHER LAYER OF SECURITY. THIS
+                            //IS STORED IN AN ARRAYLIST pwdAccTable, FOR THIS
+                            // //USER SESSION AND IS PERSISTED ABOVE IN AN ARRAYLIST
+                            pwdAccTable.add(username);
+                            pwdAccTable.add(uvPword);///this stores the verified user input for password
 
 
                         }
 
-                    };
+
+                        //ENSURES THAT THE ONLY ACCEPTABLE SELECTION IS "l"
+                        while (rgstr)
+
+                            rgstr = false;
+                        String lggd = new String();
+                        switch (lggd) {///SWITCH ACCESS
 
 
-                    //Connect to database and get results set for ArrayList
+                            case "L":
+                            case "l":
 
-                    ArrayList<getMessages> accountsMenu = new ArrayList<>();
-                    ArrayList<getMessages> balanceList = new ArrayList<>();
-
-                    //Sets up menu display and parses data from the above ArrayList
-                    getMessages acntNum = new getMessages("======ACCOUNT NUMBER==============");
-                    getMessages acntIdN = new getMessages("======ACCOUNTS ID=================");
-                    getMessages acntBalC = new getMessages("=======CHECKING==================");
-                    accountsMenu.add(acntNum);
-                    accountsMenu.add(acntIdN);
-                    accountsMenu.add(acntBalC);
-                    //Sets up menu display and parses data from the above ArrayList
-                    // getMessages newItem1 = new getMessages(rs.getString("account_num"));
-                    //  getMessages newItem2 = new getMessages(rs.getString("account_id"));
-                    // getMessages newItem3 = new getMessages(rs.getString("balance"));
-                    //  balanceList.add(newItem1);
-                    //  balanceList.add(newItem2);
-                    //  balanceList.add(newItem3);
+                                ///Create Login table in DB and add function to call
+                                //for username and password set above
 
 
-                    while (custRunning) {
+                                System.out.println("=====Enter username/email=====");
+                                String email = sc.nextLine();//this does not push to the arrayList
+                                System.out.println("======== Confirm State=====");
+                                uvPword = sc.nextLine();///this is to comlete the second half of the
+                                ///unique customer_id string...so it would
+                                //                                  be "emailst" combined
+                                ///as the unique customer_id
+
+                                System.out.println("========== Password ==========");
+                                pword = sc.nextLine();
+                                ///this compares the input to the already
+                                ////verified user chosen password
+                                //that is persisted in the pwd
+
+                                while (pword.regionMatches(0, uvPword, 0, 8)) ;
+                                while (email.regionMatches(0, username, 0, 8)) ;
 
 
-                        String input = io.nextLine();
-                            /*
-                            This displays a different menu and functions
-                             */
+                        }
+
+                        custRunning = true;///WHILE THIS SESSION IS TRUE, SECURITY CAN BE
+                        //ASSURED THROUGHOUT THE SESSION///ADDING MORE SECURITY TO THE junction_ac
+                        //TABLE IN REGARD TO INTEGRITY
+                        dataAccessObj dao = new dataAccessObj(conn);
+                        dao.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, bal);
+
+                        while (custRunning) {
+
+                            rgstr = false;//REGISTRATION IS SET TO FALSE HERE. THAT HAS BEEN COMPLETE
+                            custRunning = true;
+
+                            passMatch = (upword.regionMatches(0, uvPword, 0, 8));
+                            if (passMatch) {///THIS PROTECTS THE SECURITY OF THE FIRST TABLE IN
+                                //MARIA DB, THE junction_ac TABLE, AND THUS ACHIEVES 1NF FOR THAT TABLE.
+
+                                ///pwdAccTable CLASS BUILDS ANOTHER LAYER OF SECURITY. THIS
+                                //IS STORED IN AN ARRAYLIST pwdAccTable, FOR THIS
+                                // //USER SESSION AND IS PERSISTED ABOVE IN AN ARRAYLIST
+                                pwdAccTable.add(username);
+                                pwdAccTable.add(uvPword);///this stores the verified user input for password
+
+                                //Sets up the current user session
+                                conn = ConnectionManager.getConnection();///THIS CONNECTION WILL PERSIST
+                                //THE ENTIRE SESSION AND DOESN'T NEED TO BE RECALLED AT ANY TIME
+                                //DURING THE SESSION OF THIS USER. ANY RECONNECTIONS WILL BE
+                                //DONE AT THIS POINT  *note this prevents any incomplete information
+                                // being sent to the database
 
 
-                        //New switch case for customer session menu
-                        switch (input) {
+                                ///UPDATES USER SESSION AFTER EACH SWITCH CASE EXITS
+                                //AND RETURNS THE INFORMATION TO UPDATE THEIR RELATIONAL DATABASE
+                                // IN MARIA DB....accounts_id, customer_id, address_id, and password
 
-                            case "1": //View accounts from database/ArrayList
-                                System.out.println("\n\n===CUSTOMER ACCOUNT MENU===\nEnter selection:\n1) View Accounts \n2) Deposit \n3) Withdrawals/Transfers \nQ) Quit");
-
-                                //Checks account to be viewed and prints each message element
-                                // with a header from the accountsMenu ArrayList created above
-
-                                for (int i = 1; i < balanceList.size(); i++) {
-                                    PrintView.printMyView(i, accountsMenu.get(i));//Prints Header
-                                    PrintView.printMyView(i, balanceList.get(i));//Prints Value
-                                }
+       ///MAKE THIS REFRESH ACCOUNT lIST
+                                dao = new dataAccessObj(conn);
+                                balanceList.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, bal);
 
 
-                                break;
-
-                            case "A":
-                            case "a":
-
-                                getMessages newItem4 = new getMessages();
-                                newItem4.setMessage("null");
-                                balanceList.add(newItem4);
-
-                                getMessages acntBalS = new getMessages();
-                                acntBalS.setMessage("=======SAVINGS+===================");
-                                accountsMenu.add(acntBalS);
+// THE saveCustomer CLASS WILL CREATE A DATABASE TABLE IN MARIADB. THIS CORRESPONDS
+                                //TO THE junction_ac TABLE AND BASED ON THE INDIVIDUAL accMsg OF
+                                //INFORMATION PROVIDED TO THIS CLASS, IT IS ABLE TO PRODUCE
+                                // A "NORMALIZED" TABLE TO THIS PROGRAM. THUS, RENDERING
+                                // THE FORMAT REUSABLE
+                                //FOR ANY FORM OF INFORMATION TO BE STORED IN A "NORMALIZED"
+                                // DATABASE SYSTEM...1NF 2NF 3NF.....
 
 
-                                boolean test1 = true;
-
-                                while (test1) {
-
-
-                                    System.out.println("==========ADD ACCOUNT=========");
-                                    System.out.print("\nVerify email ");
-                                    String e = io.nextLine().toString(); //Or we could do sc.nextInt(); but then we need to consume the leftover newline character
-                                    System.out.println("==========ADD ACCOUNT=========");
-                                    System.out.print("\nVerify State ");
-                                    String s = io.nextLine().toString(); //Or we could do sc.nextInt(); but then we need to consume the leftover newline character
-                                    System.out.println("==========ADD ACCOUNT=========");
-                                    System.out.print("\nHow much would you like to deposit? ");
-                                    String b = io.nextLine().toString(); //Or we could do sc.nextInt(); but then we need to consume the leftover newline character
-                                    Double bal = Double.valueOf(b);
-                                    System.out.println("==========ADD ACCOUNT==========");
-                                    System.out.print("\nVerify 8 character password: ");
-                                    System.out.println("==========ADD ACCOUNT=========");
-                                    String pword = io.nextLine().toString(); //Or we could do sc.nextInt(); but then we need to consume the leftover newline character
-                                    System.out.print("\nConfirm password: ");
-                                    String vPword = io.nextLine().toString(); //verify password
+                                //THIS INTERFACE ALLOWS THE accMsg CLASS TO "getItemByKeyword" AND RETURNS
+                                //THE VALUE OF THAT STRING REFERENCE TO accMsg
 
 
-//nameList.add(username);//create constructor to input first name to nameList
+                                //THIS ARRAY LIST NOW STORES AND PERSISTS THE DATA IN accountsMenu FOR THIS SESSION (OR junction_ac for
+                                // database reference).
+                                //THIS UPDATES THE CURRENT SESSION UNTIL TIME TO SEND THE INFORMATION TO
+                                // THE DATABASE
 
-// List<getMessages> balanceList = new LinkedList<>();
-//getMessages loginItem = new getMessages("As a user, I can register for an account. As a user, I can login to my account.");
-// menuList.add(loginItem);
-//getMessages markItem = new getMessages("As a user, I can deposit funds into my account(s).");
-// menuList.add(markItem);
-// getMessages registerItem = new getMessages("As a user, I can create one or more bank accounts. As a user, I can withdraw funds from my account(s).");
-// menuList.add(registerItem);
-// getMessages quitItem = new getMessages("As a user, I can display all of my accounts in a list which includes current balance.");
-//   menuList.add(quitItem);
-//    System.out.println("========== Login ==========");
-//    for(int i = 0; i < menuList.size(); i++) {
 
-//      PrintView.printMyView(i, menuList.get(i));
+                                //HERE IS WHERE THE accMsgInf INTERFACE ALLOWS THE
+                                // accMsg CLASS TO STORE THE
+                                //COLLECTED INFORMATION INTO THE ARRAYLIST accountMenu
+                                //PERSISTED ABOVE AND PRINTS THE RESULTS TO THE USER
+                                //VIA A GUI
+
+                                System.out.println("\n\n===CUSTOMER ACCOUNT MENU=285==\nEnter selection:\n1) View Accounts (select 'A' to add an account) \n2) Deposit \n3) Transfers \nQ) Quit");
+                            }
+
+                            //                                          THIS WILL LOOK FOR ANY ADDITIONAL ACCOUNT UPDATES
+                            //FOR EXAMPLE, DEPOSIT RESULTS, ACCOUNT UPDATES ETC
+
+
+                            //New switch case for customer session menu
+
+
+                            String input;
+
+                            input = sc.nextLine();
+                            switch (input) {
+                                //
+
+
+                                //New switch case for customer session menu. *note (these cases are broken
+                                //down into Objects, represented as CLASS's. This allows for
+                                ///more flexibility)
+
+                                case "A":
+                                case "a":
+
+                                    //THIS PROCESS IS AUTOMATIC ONCE THE CASE IS
+                                    //SELECTED AND IMMEDIATELY "FALLS THRU" TO THE
+                                    //MAIN MENU
+
+                                    //PERSISTENT VARIABLES TO UPDATE ACCOUNTS
+                                    //LOAD ACCOUNT INFORMATION
+                       ////USE THIS TO ADD ADDITIONAL ACCOUNTS
+                                    String b = "";
+
+
+                                    System.out.println("====ACCOUNT MAINTENANCE ADD ACCOUNT=====");
+                                    System.out.println("===Account Balance==== $" +bal);
+                                    System.out.println("===Amount to deposit====$" +(b = sc.nextLine()));
+
+                                    Double dpst = 0.0;         // the next user interaction
+                                    dpst = Double.valueOf(b);
+
+                                    balanceList.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, dpst);
+
+                                    System.out.println("=====Account Added Successfully!======334====");
+
+
+
+                                //Sets up menu display and parses data from the above arrayList
+
+
+                                //ADD ACCOUNT INFORMATION HERE
+
+                                //POSSIBLE TO UPDATED THE INITIAL STARTING BALANCE
+                                // 0.00 bal, if offering
+                                // a signup special
+
+
+                                case "1":
+
+
+
+                                    balanceList.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, bal);
+
+                                    //Checks account to be viewed and prints each message element
+                                    // with info from the accountsMenu arrayList created above.
+                                    //That information, in turn
+                                    // was information based on the databaseObj "balanceList"
+
+
+                                    //THIS sets up THE GUI FOR THE ACCOUNT RETRIEVED
+
+                                    System.out.println("=====Account Update Successful====380======");
+                                        break;
+                                    ///PRINT RESULTS
+
+
+
+
+
+                                case "2":
+                                case "D":
+                                case "d":
+
+
+                                    System.out.println("====ACCOUNT MAINTENANCE DEPOSITS=====");
+                                    System.out.println("===Account Balance==== $" +bal);
+                                    System.out.println("===Amount to deposit====");
+                                    System.out.println("$"+(b = sc.nextLine()));
+                                    System.out.println("=====Which account would you like to deposit into====");
+                                    System.out.println("(Please verify Account number below:");
+                                    String choice = sc.nextLine();
+                                    dpst = Double.valueOf(b);//so the input at that time
+
+                                    //to this question
+                            ///USE THIS FOR DEPOSITS
+
+                                    balanceList.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, dpst);
+
+                                    //dao to update account information from previous stored session
+                                    //information...no need to request any additional user input and
+                                    //thus this helps prevents SQL injection
+
+
+                                    //WHICH ONLY ACCEPTS Double TYPE INPUTS. THE REST ARE STILL STORED FROM BEFORE
+                                    // IN THE PERSISTED arrayList.
+
+                                    //ACCOUNT OPTIONS GUI
+                                    //PARSES INFORMATION
+                                    //FOR THE ACCOUNT THAT THE DEPOSIT IS GOING TO
+                                    //
+
+
+                                    //DISPLAY RESULTS
+                                    //LOOP FOR ADDITIONAL ACCOUNTS
+
+
+
+
+                                    ///BOOLEAN TO TEST IF CUSTOMER IS MAKING A TRANSFER AND IF SO,
+                                    //CONTINUE TO THE SWITCH TO PERSIST THE SECOND ACCOUNT FOR THE SESSION
+
+
+
+
+                                        ///GETS RESULTS FROM ABOVE arrayList
+
+                                        break;
+                                    //the transfer is going
+
+
+                                    ///SWITCH FALLS THRU TO
+                                    //THE NEXT PROCESS
+
+                                case "3":
+                                case "T":
+                                case "t":
+
+                                    System.out.println("=======Which account will recieve the transfer?====");
+                                    String choice2 = sc.nextLine();
+                                    System.out.println("=====How would you like to transfer?====535=" +
+                                            "==");
+                                    Double wthdrws = sc.nextDouble();
+
+                                    conn = ConnectionManager.getConnection();
+                                    balanceList.addAccount(1, fn, ln, em, wthdrws);///this executes the withdrawal for the transaction
+
+                                    //Sets up menu display and parses data from the above ArrayList
+                                    //ADD FOR WITHDRAWALS HERE
+                                    ////PUT IN dao TO UPDATE ACCOUNT
+                                    //retrieves previously stored
+                                    //*build class*                    //information. Only accepts a
+                                    // Double input wthdrws from user
+                                    //Sets up menu display and parses data from the above ArrayList
+                                    //DISPLAY RESULTS
+                                    //LOOP FOR ADDITIONAL ACCOUNTS
+                                     System.out.println("=====TRANSFER SUCCESSFUL!======574====");
+
+
+                                    break;
+
+
+                                case "P":
+                                case "p":
+
+
+                                    ///LOAD ACCOUNT INFORMATION
+                                    ///LOAD ACCOUNT INFO
+                                    //dao.updateProfile CLASS
+                                    //Checks account to be viewed and prints each message element
+                                    // with a header from the accountsMenu ArrayList created above
+                                    ///UPDATE PROFILE
+                                    //LOOP FOR ADDITIONAL ACCOUNTS
+                                    //IF - ELSE STATEMENT
+                                    //WITHDRAWAL FUNCTION
+                                    //DEPOSIT FUNCTION
+                                    ///RUN ACCOUNT UPDATE CLASS
+                                    //Set up menu display and parses data from the above ArrayList
+                                    //Sets up menu display and parses data from the above ArrayList
+                                    //DISPLAY RESULTS
+                                    //LOOP FOR ADDITIONAL ACCOUNTS
+                                    System.out.println("=====Account Updated Successfully!==========");
+                                    break;
+
+
+                                //QUIT FUNCTION
+
+                                case "Q":
+                                case "q":
+                                    running = false;
+                                    custRunning = false;
+
+                                    break;
+
+
+                            }
+
+                        }
+
+
+                    }
+
+
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

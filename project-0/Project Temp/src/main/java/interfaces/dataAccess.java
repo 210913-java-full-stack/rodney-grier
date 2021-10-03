@@ -1,7 +1,9 @@
 package interfaces;
-import models.getMessages;
+import DAOs.dataAccessObj;
+import models.accMsg;
 import projExecptions.badUserInput;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -15,22 +17,15 @@ public interface dataAccess {
     //create
 
     //save object to database method
-    
 
-    public void addAccount(String s, String e, Double bal) throws SQLException;
 
-    public void save(getMessages row) throws SQLException;
+    ArrayList<dataAccessObj> saveCustomer(String fn, String m, String l, String ad, String c, String s, String e, String p, Integer z, Double b) throws SQLException, badUserInput;
 
+    void addAccount(String s, String e, Double bal) throws SQLException, IOException;
 
     //read data from database method
 
-    //query data from database, fill in empty model object
-    public getMessages getItemByID(int id) throws SQLException;
-    public void getMessages void pull(getMessages row);
-
-    //public ArrayList<String> getAllItems(ArrayList x) throws SQLException;
-
-    //public getMessages getItemByKeyword(String keyword); //SELECT * FROM items WHERE message LIKE "%KEYWORD%"
+    Double getItemByKeyword(String keyword); //SELECT * FROM items WHERE message LIKE "%KEYWORD%"
 
     //update
     // we will use the save() method for updates
@@ -38,9 +33,10 @@ public interface dataAccess {
     //delete
 
     //remove by ID
-    public void deleteByID(int id) throws SQLException;
+    void deleteByID(int id) throws SQLException;
 
 
+    void save(accMsg row) throws SQLException;
 
 
 }

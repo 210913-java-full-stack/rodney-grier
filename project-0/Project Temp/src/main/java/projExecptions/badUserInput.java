@@ -16,17 +16,17 @@ public class badUserInput extends Exception {
              boolean test = true;
             Scanner sc = new Scanner(System.in);
             test = false;
-            String inputE = null;
-            String inputT = "R";
-            inputE = inputT;
-            inputE = sc.nextLine();
+            String input = null;
+            String inputT = "1";
+            input = inputT;
+
 
             System.out.println("Invalid entry, ENTER to Register again");
         } catch (Exception e ) {
 
 
             String inputE = null;
-            String inputT = "R";
+            String inputT = "1";
             inputE = inputT;
 
             System.out.println("Invalid entry, ENTER to Register again");

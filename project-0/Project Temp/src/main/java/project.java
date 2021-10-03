@@ -22,7 +22,7 @@ public class project {
         boolean rgstr = true;
 
         //PERSISTENT TABLE DATA
-        dataAccessObj balanceList = new dataAccessObj(conn); //keeps the current user account info//updates
+        arrayList<dataAccessObj, String> balanceList = new arrayList<>(); //keeps the current user account info//updates
         // via the dao object this data persists
         //for the length of the login
 
@@ -203,6 +203,7 @@ public class project {
                         //TABLE IN REGARD TO INTEGRITY
                         dataAccessObj dao = new dataAccessObj(conn);
                         dao.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, bal);
+                        balanceList.setE(dao);
 
                         while (custRunning) {
 
@@ -233,7 +234,10 @@ public class project {
 
        ///MAKE THIS REFRESH ACCOUNT lIST
                                 dao = new dataAccessObj(conn);
-                                balanceList.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, bal);
+                                dataAccessObj temp = new dataAccessObj(conn);
+                                temp.getMessage(balanceList);
+                                dao.saveCustomer(fn,mn,ln,ad,c,st,em,pword,zi,bal);
+
 
 
 // THE saveCustomer CLASS WILL CREATE A DATABASE TABLE IN MARIADB. THIS CORRESPONDS
@@ -296,13 +300,14 @@ public class project {
 
 
                                     System.out.println("====ACCOUNT MAINTENANCE ADD ACCOUNT=====");
-                                    System.out.println("===Account Balance==== $" +bal);
-                                    System.out.println("===Amount to deposit====$" +(b = sc.nextLine()));
-
+                                    System.out.println("Press ENTER to make an initial deposit into the new account" );
+                                    System.out.println("===Amount to deposit====" +(b = sc.nextLine()));
+                                    System.out.println("$" +(b = sc.nextLine()));
                                     Double dpst = 0.0;         // the next user interaction
-                                    dpst = Double.valueOf(b);
-
-                                    balanceList.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, dpst);
+//                                    dpst = Double.valueOf(b);
+//                                    dao = new dataAccessObj(conn);
+//                                    dao.addAccount(st, em, dpst);
+//                                    balanceList.setE(dao);
 
                                     System.out.println("=====Account Added Successfully!======334====");
 
@@ -322,7 +327,11 @@ public class project {
 
 
 
-                                    balanceList.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, bal);
+//                                    dao = new dataAccessObj(conn);
+//                                    dataAccessObj temp = new dataAccessObj(conn);
+//                                    temp.getMessage(balanceList);
+//                                    dao.save(temp);
+//                                    balanceList.setE(dao);
 
                                     //Checks account to be viewed and prints each message element
                                     // with info from the accountsMenu arrayList created above.
@@ -351,13 +360,16 @@ public class project {
                                     System.out.println("$"+(b = sc.nextLine()));
                                     System.out.println("=====Which account would you like to deposit into====");
                                     System.out.println("(Please verify Account number below:");
+                                    Integer i = 0;
                                     String choice = sc.nextLine();
                                     dpst = Double.valueOf(b);//so the input at that time
 
                                     //to this question
                             ///USE THIS FOR DEPOSITS
-
-                                    balanceList.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, dpst);
+                                    i = Integer.valueOf(choice);
+                                    dao = new dataAccessObj(conn);
+                                    dao.deposits(i, fn, ln, dpst);
+                                    balanceList.setE(dao);
 
                                     //dao to update account information from previous stored session
                                     //information...no need to request any additional user input and
@@ -400,13 +412,16 @@ public class project {
 
                                     System.out.println("=======Which account will recieve the transfer?====");
                                     String choice2 = sc.nextLine();
-                                    System.out.println("=====How would you like to transfer?====535=" +
-                                            "==");
-                                    Double wthdrws = sc.nextDouble();
+                                    System.out.println("=====How much would you like to transfer?====");
+                                    double wthdrws = 0.00;
+                                    String w;
+                                    System.out.println("$"+(w = sc.nextLine()));
 
-                                    conn = ConnectionManager.getConnection();
-                                    balanceList.addAccount(1, fn, ln, em, wthdrws);///this executes the withdrawal for the transaction
-
+                                    i = Integer.valueOf(choice2);
+                                    wthdrws = Double.parseDouble(w);
+                                    dao = new dataAccessObj(conn);
+                                    dao.trnsfrWthd(i, fn, ln, em, st, wthdrws);
+                                    balanceList.setE(dao);
                                     //Sets up menu display and parses data from the above ArrayList
                                     //ADD FOR WITHDRAWALS HERE
                                     ////PUT IN dao TO UPDATE ACCOUNT

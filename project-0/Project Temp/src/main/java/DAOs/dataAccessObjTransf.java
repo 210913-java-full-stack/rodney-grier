@@ -7,6 +7,7 @@ import projExecptions.badUserInput;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public interface dataAccessObjTransf extends dataAccessObjTrs {
     void addAccount(int to, Integer ci, String ee, Double bal) throws SQLException, IOException;
@@ -14,7 +15,7 @@ public interface dataAccessObjTransf extends dataAccessObjTrs {
     void trnsfrWthd(int to, String fn, String ln, String em, String em2, Double bal) throws SQLException, IOException;
 
     @Override
-    void saveCustomer(String fn, String m, String l, String ad, String c, String s, String ee, String p, Integer z, Double b) throws SQLException, badUserInput, IOException;
+    List<dataAccessObj> saveCustomer(String fn, String m, String l, String ad, String c, String s, String ee, String p, Integer z, Double b) throws SQLException, badUserInput, IOException;
 
     @Override
     void addAccount(String s, String e, Double bal) throws SQLException, IOException;

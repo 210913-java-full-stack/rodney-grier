@@ -8,6 +8,10 @@ public interface dataAccessObjIndx extends dataAccessObjTransf {
 
     void addAccount(int to, Integer z, String ee, String l, String s, Double bal) throws SQLException, IOException;
 
+    void deposits(int to, String fn, String ln, Double bal) throws SQLException, IOException;
+
+    void updateAccount(int to, String fn, String ln, String em, String s) throws SQLException, IOException;
+
     void getValueIndx(int i);
 
     void setId(int customer_id);

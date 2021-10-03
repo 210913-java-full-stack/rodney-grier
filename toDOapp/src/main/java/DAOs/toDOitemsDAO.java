@@ -18,11 +18,11 @@ public class toDOitemsDAO implements toDOcrud {
 
     @Override
     public void save(toDOitems row) throws SQLException {
-        String sql = "SELECT * FROM to_do_items WHERE id = ?";
-        PreparedStatement pstmt = conn.prepareStatement(sql);
-        pstmt.setInt(1, row.getId());
+    String sql = "SELECT * FROM to_do_items WHERE id = ?";
+    PreparedStatement pstmt = conn.prepareStatement(sql);
+    pstmt.setInt(1, row.getId());
 
-        ResultSet rs = pstmt.executeQuery();
+    ResultSet rs = pstmt.executeQuery();
 
 
         if(rs.next()) {

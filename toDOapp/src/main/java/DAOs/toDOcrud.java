@@ -11,7 +11,7 @@ public interface toDOcrud {
 
     //create
     //save object to database method
-    public void save(toDOitems row) throws SQLException;
+    public void save(dataTrans row) throws SQLException;
     //read
     //query data from database, fill in empty model object
     public toDOitems getItemByID(int id) throws SQLException;

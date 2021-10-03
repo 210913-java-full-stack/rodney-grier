@@ -18,6 +18,7 @@ CREATE table junction_ac
 	junction_id int auto_increment,
 	account_id int not null,
 	customer_id int not null,
+	email varchar (200) not null,
 	index (account_id),
 	index (customer_id),
 	constraint primary key (junction_id)
@@ -49,6 +50,7 @@ CREATE table customers
 	firstname		varchar(200),
 	middlename		varchar(20),
 	lastname		varchar(200),
+	email			varchar(200),
 	address_id	int not null,
 	constraint Primary Key (customer_id),
 	constraint junction_ac_fk	foreign key (customer_id) references junction_ac (customer_id),
@@ -58,13 +60,13 @@ CREATE table customers
 
 # Populate table with data
 
-INSERT INTO junction_ac (customer_id, account_id) VALUES (0001, 900001);
-INSERT INTO junction_ac (customer_id, account_id) VALUES (0001, 900002);
-INSERT INTO junction_ac (customer_id, account_id) VALUES (0002, 900003);
-INSERT INTO junction_ac (customer_id, account_id) VALUES (0002, 900004);
-INSERT INTO junction_ac (customer_id, account_id) VALUES (0003, 900005);
-INSERT INTO junction_ac (customer_id, account_id) VALUES (0004, 900006);
-INSERT INTO junction_ac (customer_id, account_id) VALUES (0005, 900007);
+INSERT INTO junction_ac (email, customer_id ,account_id) VALUES ("Jason@rev.net", 1,900001);
+INSERT INTO junction_ac (email, customer_id, account_id) VALUES ("Amanda@rev.net", 2, 900002);
+INSERT INTO junction_ac (email, customer_id, account_id) VALUES ("Edward@rev.net", 3, 900003);
+INSERT INTO junction_ac (email, customer_id ,account_id) VALUES ("Sam@rev.net", 4, 900004);
+INSERT INTO junction_ac (email, customer_id ,account_id) VALUES ("John@rev.net", 5, 900005);
+INSERT INTO junction_ac (email, customer_id ,account_id) VALUES ("Marty@rev.net",6,  900006);
+INSERT INTO junction_ac (email, customer_id ,account_id) VALUES ("Jason@rev.net",7, 900007);
 
 INSERT INTO address (address, city, state, zip) VALUES ("1 Way st.", "Tampa", "FL", 12345);
 INSERT INTO address (address, city, state, zip) VALUES ("144 Bleeker st.", "Austin", "TX", 55447);
@@ -72,11 +74,11 @@ INSERT INTO address (address, city, state, zip) VALUES ("86 fuzzy lane", "Dallas
 INSERT INTO address (address, city, state, zip) VALUES ("212 1st ave", "Albany", "NY", 12210);
 INSERT INTO address (address, city, state, zip) VALUES ("74 Daytona Ave.", "Albany", "NY", 12210);
 
-INSERT INTO customers (customer_id, firstname, middlename, lastname, address_id) VALUES (0001, "Jason", "", "Smith", 2);
-INSERT INTO customers (customer_id, firstname, middlename, lastname, address_id) VALUES (0002, "Amanda", "", "Smith", 4);
-INSERT INTO customers (customer_id, firstname, middlename, lastname, address_id) VALUES (0003, "John", "", "Cross", 1);
-INSERT INTO customers (customer_id, firstname, middlename, lastname, address_id) VALUES (0004, "Marty", "Andrew", "Gras", 3);
-INSERT INTO customers (customer_id, firstname, middlename, lastname, address_id) VALUES (0005, "Jason", "A.", "Lastname", 5);
+INSERT INTO customers (customer_id, email, firstname, middlename, lastname, address_id) VALUES (0001, "Jason@rev.net", "Jason", "", "Smith", 2);
+INSERT INTO customers (customer_id, email, firstname, middlename, lastname, address_id) VALUES (0002, "Amanda@rev.net", "Amanda", "", "Smith", 4);
+INSERT INTO customers (customer_id, email, firstname, middlename, lastname, address_id) VALUES (0003, "John@rev.net", "John", "A", "Cross", 1);
+INSERT INTO customers (customer_id, email, firstname, middlename, lastname, address_id) VALUES (0004, "Marty@rev.net", "Marty", "Andrew", "Gras", 3);
+INSERT INTO customers (customer_id, email, firstname, middlename, lastname, address_id) VALUES (0005, "Sam@rev.net", "Jason", "A.", "Lastname", 5);
 
 INSERT INTO accounts (account_id, balance) VALUES (900001, 1500.50);
 INSERT INTO accounts (account_id, balance) VALUES (900002, 2780.25);

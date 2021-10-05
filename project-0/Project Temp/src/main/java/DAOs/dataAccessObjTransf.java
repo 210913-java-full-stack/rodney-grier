@@ -26,8 +26,10 @@ public interface dataAccessObjTransf extends dataAccessObjTrs {
     @Override
     void getItemByKeyword(String keyword);
 
-    void getMessage(arrayList<dataAccessObj, String> tempBalance);
+    arrayList<dataAccessObj, String> getMessage(arrayList<dataAccessObj, String> tempBalance);
 
     void getItemByID(String customer_id);
+
+    void setName(String aDouble);
 
 }

@@ -147,6 +147,7 @@ public class project {
                         System.out.print("\nConfirm password: ");
                         String uvPword = sc.nextLine();//this sets the new 8 digit password
                         System.out.println("== Registration Complete!====");
+                        System.out.println("== PRESS L TO LOGIN====");
 
                         ///this verifies that the user's input matches
                         boolean passMatch = (upword.regionMatches(0, uvPword, 0, 8));
@@ -160,6 +161,12 @@ public class project {
                             pwdAccTable.add(uvPword);///this stores the verified user input for password
 
 
+                        }else{
+
+                            System.out.println("LOGIN ERROR! PLEASE REGISTER FOR AN ACCOUNT OR TRY YOUR LOGIN AGAIN");
+                            strt = "r";
+
+
                         }
 
 
@@ -167,7 +174,7 @@ public class project {
                         while (rgstr)
 
                             rgstr = false;
-                        String lggd = new String();
+                            String lggd = new String();
                         switch (lggd) {///SWITCH ACCESS
 
 
@@ -176,7 +183,7 @@ public class project {
 
                                 ///Create Login table in DB and add function to call
                                 //for username and password set above
-
+                                rgstr = false;
 
                                 System.out.println("=====Enter username/email=====");
                                 String email = sc.nextLine();//this does not push to the arrayList
@@ -192,18 +199,20 @@ public class project {
                                 ////verified user chosen password
                                 //that is persisted in the pwd
 
-                                while (pword.regionMatches(0, uvPword, 0, 8)) ;
-                                while (email.regionMatches(0, username, 0, 8)) ;
-
+                             //   while (upword.regionMatches(0, uvPword, 0, 8)) ;
+                              //  while (email.regionMatches(0, username, 0, 8)) ;
+                                dataAccessObj dao = new dataAccessObj(conn);
+                                dao.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, bal);
+                                dataAccessObj temp = new dataAccessObj(conn);
+                                balanceList.setE(temp);
 
                         }
+                        System.out.println("\n\n===CUSTOMER ACCOUNT MENU=285==\nEnter selection:\n1) View Accounts (select 'A' to add an account) \n2) Deposit \n3) Transfers \nQ) Quit");
 
                         custRunning = true;///WHILE THIS SESSION IS TRUE, SECURITY CAN BE
                         //ASSURED THROUGHOUT THE SESSION///ADDING MORE SECURITY TO THE junction_ac
                         //TABLE IN REGARD TO INTEGRITY
-                        dataAccessObj dao = new dataAccessObj(conn);
-                        dao.saveCustomer(fn, mn, ln, ad, c, st, em, pword, zi, bal);
-                        balanceList.setE(dao);
+
 
                         while (custRunning) {
 
@@ -233,10 +242,8 @@ public class project {
                                 // IN MARIA DB....accounts_id, customer_id, address_id, and password
 
        ///MAKE THIS REFRESH ACCOUNT lIST
-                                dao = new dataAccessObj(conn);
-                                dataAccessObj temp = new dataAccessObj(conn);
-                                temp.getMessage(balanceList);
-                                dao.saveCustomer(fn,mn,ln,ad,c,st,em,pword,zi,bal);
+
+
 
 
 
@@ -265,14 +272,13 @@ public class project {
                                 //PERSISTED ABOVE AND PRINTS THE RESULTS TO THE USER
                                 //VIA A GUI
 
-                                System.out.println("\n\n===CUSTOMER ACCOUNT MENU=285==\nEnter selection:\n1) View Accounts (select 'A' to add an account) \n2) Deposit \n3) Transfers \nQ) Quit");
-                            }
+                                 }
 
                             //                                          THIS WILL LOOK FOR ANY ADDITIONAL ACCOUNT UPDATES
                             //FOR EXAMPLE, DEPOSIT RESULTS, ACCOUNT UPDATES ETC
 
 
-                            //New switch case for customer session menu
+
 
 
                             String input;
@@ -304,10 +310,11 @@ public class project {
                                     System.out.println("===Amount to deposit====" +(b = sc.nextLine()));
                                     System.out.println("$" +(b = sc.nextLine()));
                                     Double dpst = 0.0;         // the next user interaction
-//                                    dpst = Double.valueOf(b);
-//                                    dao = new dataAccessObj(conn);
-//                                    dao.addAccount(st, em, dpst);
-//                                    balanceList.setE(dao);
+                                    dpst = Double.valueOf(b);
+                                    dataAccessObj dao = new dataAccessObj(conn);
+
+                                    dao.addAccount(st, em, dpst);
+                                    balanceList.setE(dao);
 
                                     System.out.println("=====Account Added Successfully!======334====");
 
@@ -326,13 +333,13 @@ public class project {
                                 case "1":
 
 
+                                    System.out.println("\n\n===CUSTOMER ACCOUNT MENU=285==\nEnter selection:\n1) View Accounts (select 'A' to add an account) \n2) Deposit \n3) Transfers \nQ) Quit");
 
-//                                    dao = new dataAccessObj(conn);
-//                                    dataAccessObj temp = new dataAccessObj(conn);
-//                                    temp.getMessage(balanceList);
-//                                    dao.save(temp);
-//                                    balanceList.setE(dao);
-
+                                    dao = new dataAccessObj(conn);
+//                                    temp = new dataAccessObj(conn);
+////                                         temp.getMessage(balanceList);
+                                   dao.savePrint(fn, mn, ln, ad, c, st, em, pword, zi, bal);
+                                     balanceList.setE(dao);
                                     //Checks account to be viewed and prints each message element
                                     // with info from the accountsMenu arrayList created above.
                                     //That information, in turn
@@ -355,20 +362,29 @@ public class project {
 
 
                                     System.out.println("====ACCOUNT MAINTENANCE DEPOSITS=====");
-                                    System.out.println("===Account Balance==== $" +bal);
                                     System.out.println("===Amount to deposit====");
                                     System.out.println("$"+(b = sc.nextLine()));
-                                    System.out.println("=====Which account would you like to deposit into====");
-                                    System.out.println("(Please verify Account number below:");
-                                    Integer i = 0;
-                                    String choice = sc.nextLine();
+                                    System.out.println("=====First Name of account holder====");
+                                    System.out.println("First Name: "+ (fn = sc.nextLine()));
+                                    System.out.println("=====Last Name of account holder====");
+                                    System.out.println("Last Name: "+ (ln = sc.nextLine()));
+
+
+                                    System.out.println("(Please verify Account Id below and ensure it is correct)");
+                                    System.out.println("Press ENTER to continue");
+                                    System.out.println("Account Number: "+ (em + st));
+
                                     dpst = Double.valueOf(b);//so the input at that time
+                                    String choice = sc.nextLine();
+
+                                    System.out.println("\n\n===CUSTOMER ACCOUNT MENU=285==\nEnter selection:\n1) View Accounts (select 'A' to add an account) \n2) Deposit \n3) Transfers \nQ) Quit");
+
 
                                     //to this question
                             ///USE THIS FOR DEPOSITS
-                                    i = Integer.valueOf(choice);
+
                                     dao = new dataAccessObj(conn);
-                                    dao.deposits(i, fn, ln, dpst);
+                                 dao.addAccount(fn, ln, em, zi, dpst);
                                     balanceList.setE(dao);
 
                                     //dao to update account information from previous stored session
@@ -417,10 +433,10 @@ public class project {
                                     String w;
                                     System.out.println("$"+(w = sc.nextLine()));
 
-                                    i = Integer.valueOf(choice2);
+                                    Integer i = Integer.valueOf(choice2);
                                     wthdrws = Double.parseDouble(w);
                                     dao = new dataAccessObj(conn);
-                                    dao.trnsfrWthd(i, fn, ln, em, st, wthdrws);
+                                   dao.trnsfrWthd(i, fn, ln, em, st, wthdrws);
                                     balanceList.setE(dao);
                                     //Sets up menu display and parses data from the above ArrayList
                                     //ADD FOR WITHDRAWALS HERE
@@ -432,6 +448,8 @@ public class project {
                                     //DISPLAY RESULTS
                                     //LOOP FOR ADDITIONAL ACCOUNTS
                                      System.out.println("=====TRANSFER SUCCESSFUL!======574====");
+                                    System.out.println("\n\n===CUSTOMER ACCOUNT MENU=285==\nEnter selection:\n1) View Accounts (select 'A' to add an account) \n2) Deposit \n3) Transfers \nQ) Quit");
+
 
 
                                     break;

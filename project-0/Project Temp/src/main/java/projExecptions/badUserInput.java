@@ -7,13 +7,12 @@ import java.util.*;
 public class badUserInput extends Exception {
 
 
-
-    public badUserInput(SQLIntegrityConstraintViolationException f, SQLException g, IOException h, badUserInput i  )  {
+    public badUserInput(SQLIntegrityConstraintViolationException f, SQLException g, IOException h, badUserInput i) {
 
         super("Database Error!");
 
         try {
-             boolean test = true;
+            boolean test = true;
             Scanner sc = new Scanner(System.in);
             test = false;
             String input = null;
@@ -22,7 +21,7 @@ public class badUserInput extends Exception {
 
 
             System.out.println("Invalid entry, ENTER to Register again");
-        } catch (Exception e ) {
+        } catch (Exception e) {
 
 
             String inputE = null;
@@ -37,8 +36,7 @@ public class badUserInput extends Exception {
         }
 
 
-
-
-
     }
+
+
 }

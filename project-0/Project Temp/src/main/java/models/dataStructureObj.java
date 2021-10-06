@@ -1,6 +1,9 @@
 package models;
 
 import interfaces.dataStructure;
+import interfaces.dataTrans;
+
+import java.sql.SQLException;
 
 public class dataStructureObj implements dataStructure {
 
@@ -11,6 +14,11 @@ public class dataStructureObj implements dataStructure {
 
     @Override
     public void add(Object o) {
+
+    }
+
+    @Override
+    public void add() {
 
     }
 
@@ -36,6 +44,16 @@ public class dataStructureObj implements dataStructure {
 
     @Override
     public int contains(Object o) {
+        return 0;
+    }
+
+    @Override
+    public void save(dataTrans row) throws SQLException {
+
+    }
+
+    @Override
+    public int getId() {
         return 0;
     }
 }

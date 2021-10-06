@@ -51,6 +51,9 @@ public class dataAccessObj implements dataAccessObjIndx {
         PreparedStatement preparedUpdateStatement = conn.prepareStatement(updateStatement);
         preparedUpdateStatement.setString(1, l + fn);
         preparedUpdateStatement.setDouble(2, bal);
+        preparedUpdateStatement.executeUpdate();
+
+
         updateStatement = "INSERT savings (account_s, balance) VALUES (?, ?)";
         preparedUpdateStatement = conn.prepareStatement(updateStatement);
         preparedUpdateStatement.setString(1, ee + s);

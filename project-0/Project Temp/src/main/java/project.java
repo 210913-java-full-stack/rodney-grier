@@ -422,10 +422,14 @@ public class project {
                             System.out.println("====ACCOUNT MAINTENANCE TRANSFERS=====");
                             System.out.println("===Amount to TRANSFER====");
                             System.out.println("$" + (w = sc.nextLine()));
+                            System.out.println("=======Enter the EMAIL of the account that will SEND the transfer?====");
+                            System.out.println("Recipient email: " + (fn = sc.nextLine()));
+                            System.out.println("=======Enter the STATE of the account that will SEND the transfer?====");
+                            System.out.println("Recipient State: " + (st = sc.nextLine()));
                             System.out.println("=======Enter the EMAIL of the account that will RECEIVE the transfer?====");
-                            System.out.println("Recipient State: " + (em2 = sc.nextLine()));
-                            System.out.println("=====Verify the ZIPCODE of the RECIPIENT==============");
-                            System.out.println("Recipient Zip: " + (z = sc.nextLine()));
+                            System.out.println("Recipient Email: " + (em2 = sc.nextLine()));
+                            System.out.println("=====Verify the STATE of the RECIPIENT==============");
+                            System.out.println("Recipient State: " + (st2 = sc.nextLine()));
 
                             System.out.println("(Please verify the email of the account owner below and ensure it is correct)");
                             System.out.println("Press ENTER to continue");
@@ -437,7 +441,7 @@ public class project {
 
 
                             dao = new dataAccessObj(conn);
-                            dao.trnsfrWthd(em, st, em2, st2, wthdrws);
+                            dao.trnsfrWthd(fn, st, em2, st2, wthdrws);
                             balanceList.setE(dao);
                             //Sets up menu display and parses data from the above ArrayList
                             //ADD FOR WITHDRAWALS HERE
